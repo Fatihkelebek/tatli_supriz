@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esra Bacimle Tatlıya Doğru 🥳</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #fff0f5;
+        padding: 20px;
+      }
+      h1 {
+        color: #d81b60;
+      }
+      .hearts {
+        margin: 20px 0;
+      }
+      .heart {
+        font-size: 40px;
+        cursor: pointer;
+        margin: 10px;
+        transition: transform 0.2s;
+      }
+      .heart:hover {
+        transform: scale(1.2);
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 20px;
+        color: #4a148c;
+      }
+      .buttons {
+        margin-top: 30px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .yes {
+        background-color: #81c784;
+        color: white;
+      }
+      .no {
+        background-color: #e57373;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>😊 Ablacığım, sana küçük bir sürprizim var! 🍰</h1>
+    <p>
+      Kalplerden birine tıkla, sana hangi tatlıyı yapman gerektiğini söyleyeyim
+      💖
+    </p>
+
+    <div class="hearts">
+      <span class="heart">❤️</span>
+      <span class="heart">💖</span>
+      <span class="heart">💓</span>
+      <span class="heart">💕</span>
+      <span class="heart">💞</span>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <div class="buttons">
+      <button class="yes" onclick="accept()">
+        Tatlı yapmayı kabul ediyorum 😍
+      </button>
+      <button class="no" onclick="decline()">
+        Tatlı yapmayı kabul etmiyorum 🙃
+      </button>
+    </div>
+
+    <div class="result" id="response"></div>
+
+    <script>
+      const sweets = [
+        { name: "Brownie", emoji: "🍫" },
+        { name: "Kadayıflı Muhallebi", emoji: "🥮" },
+        { name: "Bisküvili Pasta", emoji: "🎂" },
+        { name: "Şekerpare", emoji: "🍯" },
+        { name: "Profiterol", emoji: "🧁" },
+      ];
+
+      const thankYouMessages = [
+        "Harikasın! En sevdiğim abla sensin 💖",
+        "İşte bu yüzden en tatlı sensin! 🥰",
+        "Sen tatlıyı yap, bulaşıkları abime yıkatırım 😅",
+        "Bir dilim de sen yersin. 😋",
+      ];
+
+      const persuadeMessages = [
+        "Emin misin? Tatlısız bir hayat düşünemiyorum 🙃",
+        "Bak vallahi çok mutlu olurum 😍",
+        "Son kararın mı? Tatlıdan kaçış yok 😅",
+      ];
+
+      let declineCount = 0;
+      let lastSweetName = null;
+
+      function getRandomSweet() {
+        let sweet;
+        do {
+          sweet = sweets[Math.floor(Math.random() * sweets.length)];
+        } while (sweet.name === lastSweetName && sweets.length > 1);
+        lastSweetName = sweet.name;
+        return sweet;
+      }
+
+      document.querySelectorAll(".heart").forEach((heart) => {
+        heart.addEventListener("click", () => {
+          const sweet = getRandomSweet();
+          document.getElementById(
+            "result"
+          ).innerHTML = `Bugün menüde: <b>${sweet.name}</b> ${sweet.emoji}`;
+        });
+      });
+
+      function accept() {
+        const message =
+          thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
+        document.getElementById("response").innerHTML = message;
+        declineCount = 0;
+      }
+
+      function decline() {
+        if (declineCount < persuadeMessages.length) {
+          document.getElementById("response").innerHTML =
+            persuadeMessages[declineCount] +
+            `<br><button class='yes' onclick='accept()'>Tamam ya, tatlıyı yapıyorum 🍰</button>`;
+          declineCount++;
+        } else {
+          document.getElementById(
+            "response"
+          ).innerHTML = `Peki peki, ikna oldum 😊<br><button class='yes' onclick='accept()'>Tatlıyı yapıyorum 🍰</button>`;
+          declineCount = 0;
+        }
+      }
+    </script>
+  </body>
+</html>
